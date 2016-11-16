@@ -25,7 +25,7 @@ subject_set.display_name = 'Asteroids (scaled)'
 subject_set.save()
 
 #Load an image.
-for image in glob.glob("c:\\Users\\Doug\\LSST\\sub_sets\\Asteroids\\*.jpg"):
+for image in glob.glob("c:\\Users\\Doug\\LSST\\LSST-Zoo\\sub_sets\\Asteroids\\*.jpg"):
     subject = Subject()
     subject.links.project = project
     subject.add_location(image)
@@ -36,5 +36,5 @@ for image in glob.glob("c:\\Users\\Doug\\LSST\\sub_sets\\Asteroids\\*.jpg"):
 #subject.metadata['image_id'] = 12345
     
 
-# SubjectSet.add() can take a list of Subjects, or just one.
+#SubjectSet.add() #can take a list of Subjects, or just one.
 
