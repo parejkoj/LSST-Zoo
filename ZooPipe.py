@@ -12,8 +12,7 @@ import glob
 #Connect to Zooniverse and Find Project
 Panoptes.connect(username='dougbrn', password='roscoe282306')
 project = Project.find(3356)
-for workflow in project.links.workflows:
-    print workflow.display_name
+
 
 #Ping Zooniverse to send data. Data sent in an email.    
 #project.get_export("classifications",generate=True, wait=True)
@@ -29,7 +28,7 @@ for image in glob.glob("c:\\Users\\Doug\\LSST\\LSST-Zoo\\sub_sets\\Asteroids\\*.
     subject = Subject()
     subject.links.project = project
     subject.add_location(image)
-    subject.metadata['image_title'] = image[38:-4]
+    subject.metadata['image_title'] = image[47:-4]
     subject.save()
     subject_set.add(subject)
 # You can set whatever metadata you want, or none at all
