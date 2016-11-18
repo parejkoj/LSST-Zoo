@@ -12,11 +12,7 @@ import glob
 #Connect to Zooniverse and Find Project
 Panoptes.connect(username='dougbrn', password='roscoe282306')
 project = Project.find(3356)
-
-
-#Ping Zooniverse to send data. Data sent in an email.    
-#project.get_export("classifications",generate=True, wait=True)
-
+"""
 #Create new subject set. Name must be unique.   
 subject_set = SubjectSet()
 subject_set.links.project = project
@@ -36,4 +32,6 @@ for image in glob.glob("c:\\Users\\Doug\\LSST\\LSST-Zoo\\sub_sets\\Asteroids\\*.
     
 
 #SubjectSet.add() #can take a list of Subjects, or just one.
-
+"""
+#Ping Zooniverse to send data. Data sent in an email.    
+project.get_export("classifications",generate=True, wait=True)
