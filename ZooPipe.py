@@ -7,6 +7,7 @@ Created on Wed Oct 19 23:53:23 2016
 
 from panoptes_client import SubjectSet, Subject, Project, Panoptes
 import glob
+import csv
 #print glob.glob("c:\\Users\\Doug\\LSST\\sub_sets\\Asteroids\\*.jpg")[0][38:-4]
 
 #Connect to Zooniverse and Find Project
@@ -34,4 +35,7 @@ for image in glob.glob("c:\\Users\\Doug\\LSST\\LSST-Zoo\\sub_sets\\Asteroids\\*.
 #SubjectSet.add() #can take a list of Subjects, or just one.
 """
 #Ping Zooniverse to send data. Data sent in an email.    
-project.get_export("classifications",generate=True, wait=True)
+export_file = project.get_export("classifications",generate=True, wait=True)
+r  = csv.reader(export_file)
+for row in r:
+    print row[0]
