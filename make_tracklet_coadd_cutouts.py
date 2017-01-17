@@ -173,9 +173,9 @@ if __name__ == "__main__":
             if len(cutouts) == 0:
                 continue
 
-            for group_n, cutout_group in enumerate(group_items(zip(cutouts, cutout_data), 1*1)): #4*4
+            for group_n, cutout_group in enumerate(group_items(zip(cutouts, cutout_data), 4*4)): #4*4
                 plt.figure(1).clear()
-                top_level_grid = gridspec.GridSpec(1, 1) #(4,4)
+                top_level_grid = gridspec.GridSpec(4, 4) #(4,4)
 
                 for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
                     plt.subplot(top_level_grid[cutout_n])
