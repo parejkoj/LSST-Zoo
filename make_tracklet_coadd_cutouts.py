@@ -74,11 +74,11 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
     dataref = {"tract": tract_info.getId(),
                "patch": make_patch_string(patch_info.getIndex()),
                "filter": "VR"}
-    available_visits = filter(lambda v: b.datasetExists("deepCoadd_tempExp",
+    available_visits = filter(lambda v: butler.datasetExists("deepCoadd_tempExp",
                                                         visit=int(v),
                                                         **dataref),
                               visits)
-    patch_images = [b.get("deepCoadd_tempExp", visit=int(v), **dataref)
+    patch_images = [butler.get("deepCoadd_tempExp", visit=int(v), **dataref)
                     for v in available_visits]
 
     if len(patch_images) == 0:
@@ -120,12 +120,12 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
 
 if __name__ == "__main__":
     path="/scratch/ctslater/NEO/"
-    b = dafPersist.Butler(os.path.join(path,"decam_NEO_repo/rerun/diffims1"))
+    butler = dafPersist.Butler(os.path.join(path,"decam_NEO_repo/rerun/diffims1")) #butler instead of b
     db_conn = SqliteConnection("tracklets.db")
     db_conn.row_factory = None
     cursor = db_conn.cursor()
 
-    skymap = b.get("deepCoadd_skyMap")
+    skymap = butler.get("deepCoadd_skyMap")
 
     for target_tract in [0]:
         tract_info = skymap[target_tract]
@@ -162,7 +162,7 @@ if __name__ == "__main__":
         unique_patches = set(patches)
 
         for target_patch in list(unique_patches):
-            if not b.datasetExists("deepCoadd_calexp", tract=tract_info.getId(),
+            if not butler.datasetExists("deepCoadd_calexp", tract=tract_info.getId(),
                           patch=make_patch_string(target_patch.getIndex()), filter="VR"):
                 continue
 
@@ -173,9 +173,9 @@ if __name__ == "__main__":
             if len(cutouts) == 0:
                 continue
 
-            for group_n, cutout_group in enumerate(group_items(zip(cutouts, cutout_data), 4*4)):
+            for group_n, cutout_group in enumerate(group_items(zip(cutouts, cutout_data), 1*1)): #4*4
                 plt.figure(1).clear()
-                top_level_grid = gridspec.GridSpec(4, 4)
+                top_level_grid = gridspec.GridSpec(1, 1) #(4,4)
 
                 for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
                     plt.subplot(top_level_grid[cutout_n])
@@ -190,4 +190,3 @@ if __name__ == "__main__":
                                                                            target_patch.getIndex()[1],
                                                                            group_n),
                             dpi=150, facecolor='k')
-
