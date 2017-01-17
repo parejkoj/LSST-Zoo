@@ -13,19 +13,19 @@ import csv
 #Connect to Zooniverse and Find Project
 Panoptes.connect(username='dougbrn', password='roscoe282306')
 project = Project.find(3356)
-"""
+
 #Create new subject set. Name must be unique.   
 subject_set = SubjectSet()
 subject_set.links.project = project
-subject_set.display_name = 'Asteroids (scaled)'
+subject_set.display_name = 'Asteroids (Real)'
 subject_set.save()
 
 #Load an image.
-for image in glob.glob("c:\\Users\\Doug\\LSST\\LSST-Zoo\\sub_sets\\Asteroids\\*.jpg"):
+for image in glob.glob("/home/doug/LSST-Zoo/sub_sets/Asteroids/*.jpg"):
     subject = Subject()
     subject.links.project = project
     subject.add_location(image)
-    subject.metadata['image_title'] = image[47:-4]
+    subject.metadata['image_title'] = image[39:-4]
     subject.save()
     subject_set.add(subject)
 # You can set whatever metadata you want, or none at all
@@ -39,3 +39,4 @@ export_file = project.get_export("classifications",generate=True, wait=True)
 r  = csv.reader(export_file)
 for row in r:
     print row[0]
+"""

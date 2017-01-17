@@ -14,9 +14,15 @@ import luptonRGB
 data=scipy.io.loadmat("cutouts_threedet_tracklets_303482")
 cutouts=data["cutouts"]
 Q=5
+set_lim=50
+count=
 
+#flag 1 is an asteroid in cutouts[i][3]
 for i in range(len(cutouts)):
-    if not np.isnan(np.sum(cutouts[i][0])) and cutouts[i][3]!=0:
+    if not np.isnan(np.sum(cutouts[i][0])) and cutouts[i][3]==0:
+        count+=1
+        """
+        count+=1
         template=cutouts[i][0]
         science=cutouts[i][1]
         difference=cutouts[i][2]
@@ -46,5 +52,7 @@ for i in range(len(cutouts)):
         ax2.set_title("Science")
         ax3.set_title("Difference")
         plt.tight_layout(w_pad=-3)
-        plt.savefig('sub_sets/Asteroids/ast'+str(i)+'.jpg',bbox_inches='tight')
+        plt.savefig('sub_sets/flagone/ast'+str(i)+'.jpg',bbox_inches='tight')
         plt.close()
+     """
+print count
