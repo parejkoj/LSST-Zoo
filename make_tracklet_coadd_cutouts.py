@@ -181,7 +181,7 @@ if __name__ == "__main__":
                 for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
                     plt.subplot(top_level_grid[cutout_n])
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
-                    plt.imshow(scaled_cutout, interpolation="none" cmap=cm.viridis)
+                    plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
                     plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(),
                                                                                target_patch.getIndex()[0],
                                                                                target_patch.getIndex()[1],
