@@ -3,6 +3,7 @@ import matplotlib
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+from matplotlib import cm
 import os
 
 import lsst.afw as afw
@@ -78,13 +79,13 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
                                                         visit=int(v),
                                                         **dataref),
                               visits)
-    patch_images = [butler.get("deepCoadd_tempExp", visit=int(v), **dataref)
+    patch_images = [butler.get("deepCoadd_tempExp", visit=int(v), **dataref) #Coadd?
                     for v in available_visits]
 
     if len(patch_images) == 0:
         return [], [], (0,0)
 
-    combined_img = np.sum(np.dstack([im.getMaskedImage().getImage().getArray()
+    combined_img = np.sum(np.dstack([im.getMaskedImage().getImage().getArray() #Coadd
                                      for im in patch_images]), axis=-1)
 
     z1, z2 = zscale_image(combined_img)
@@ -180,7 +181,11 @@ if __name__ == "__main__":
                 for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
                     plt.subplot(top_level_grid[cutout_n])
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
-                    plt.imshow(scaled_cutout, interpolation="none")
+                    plt.imshow(scaled_cutout, interpolation="none" cmap=cm.viridis)
+                    plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(),
+                                                                               target_patch.getIndex()[0],
+                                                                               target_patch.getIndex()[1],
+                                                                               group_n"))
                     plt.axis("off")
 
                 plt.subplots_adjust(hspace=0.02, wspace=0.02, left=0.05, right=0.95,
