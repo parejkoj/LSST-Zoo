@@ -82,6 +82,9 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
     patch_images = [butler.get("deepCoadd_tempExp", visit=int(v), **dataref) #Temporary exposure
                     for v in available_visits]
 
+    for im in patch_images:
+
+
     if len(patch_images) == 0:
         return [], [], (0,0)
 
@@ -114,9 +117,15 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
         shifted_xy = pixel_center - patch_info.getOuterBBox().getBegin()
         cutout = combined_img[(shifted_xy.getY() - cutout_size):(shifted_xy.getY() + cutout_size),
                               (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
+        sci_cutouts=[]
+        for im in patch_images:
+            sci_cutout=im[(shifted_xy.getY() - cutout_size):(shifted_xy.getY() + cutout_size),
+                                  (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
+            sci_cutouts.append(sci_cutout)
+
         cutouts.append(cutout)
         cutout_data.append({"tracklet_length": tracklet_length*3600.0})
-    return cutouts, cutout_data, (z1, z2)
+    return cutouts, cutout_data, (z1, z2), sci_cutouts
 
 
 if __name__ == "__main__":
@@ -174,41 +183,44 @@ if __name__ == "__main__":
             if len(cutouts) == 0:
                 continue
 
-            for group_n, cutout_group in enumerate(group_items(zip(cutouts, cutout_data), 1*1)): #4*4
+            for group_n, cutout_group in enumerate(group_items(zip(cutouts, cutout_data, sci_cutouts), 1*1)): #4*4
                 plt.figure(1).clear()
                 #top_level_grid = gridspec.GridSpec(3, 2) #(4,4)
 
                 for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
-                    top_level_grid=gridspec.GridSpec(1,4)
 
-                    plt.subplot(top_level_grid[0]) #Template
-                    scaled_cutout = ((cutout - z1)/z2).clip(0,1)
-                    plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Template",color='white')
-                    plt.axis("off")
+                    for sci_cutout in sci_cutouts:
 
-                    plt.subplot(top_level_grid[1]) #Science
-                    scaled_cutout = ((cutout - z1)/z2).clip(0,1)
-                    plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Science",color='white')
-                    plt.axis("off")
+                        top_level_grid=gridspec.GridSpec(1,4)
 
-                    plt.subplot(top_level_grid[2]) #Difference
-                    scaled_cutout = ((cutout - z1)/z2).clip(0,1)
-                    plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Difference",color='white')
-                    plt.axis("off")
+                        plt.subplot(top_level_grid[0]) #Template
+                        scaled_cutout = ((cutout - z1)/z2).clip(0,1)
+                        plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
+                        plt.title("Template",color='white')
+                        plt.axis("off")
 
-                    plt.subplot(top_level_grid[3]) #Coadd
-                    scaled_cutout = ((cutout - z1)/z2).clip(0,1)
-                    plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Coadd", color='white')
-                    plt.axis("off")
+                        plt.subplot(top_level_grid[1]) #Science
+                        scaled_sci_cutout = ((sci_cutout - z1)/z2).clip(0,1)
+                        plt.imshow(scaled_sci_cutout, interpolation="none", cmap=cm.viridis)
+                        plt.title("Science",color='white')
+                        plt.axis("off")
 
-                plt.subplots_adjust(hspace=0.02, wspace=0.02, left=0.05, right=0.95,
+                        plt.subplot(top_level_grid[2]) #Difference
+                        scaled_cutout = ((cutout - z1)/z2).clip(0,1)
+                        plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
+                        plt.title("Difference",color='white')
+                        plt.axis("off")
+
+                        plt.subplot(top_level_grid[3]) #Coadd
+                        scaled_cutout = ((cutout - z1)/z2).clip(0,1)
+                        plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
+                        plt.title("Coadd", color='white')
+                        plt.axis("off")
+
+                        plt.subplots_adjust(hspace=0.02, wspace=0.02, left=0.05, right=0.95,
                                     top=0.95, bottom=0.05)
-                plt.savefig("cutouts/cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(),
+                        plt.savefig("cutouts/cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(),
                                                                            target_patch.getIndex()[0],
                                                                            target_patch.getIndex()[1],
                                                                            group_n),
-                            dpi=150, facecolor='k')
+                                                                           dpi=150, facecolor='k')
