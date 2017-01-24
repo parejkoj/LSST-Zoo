@@ -178,7 +178,7 @@ if __name__ == "__main__":
             print("Patch ", target_patch)
 
             sel, = np.where(np.array(patches) == target_patch)
-            cutouts, cutout_data, (z1, z2) = make_cutouts_for_patch(butler, tract_info, target_patch, tracklets[sel])
+            cutouts, cutout_data, (z1, z2), sci_cutouts = make_cutouts_for_patch(butler, tract_info, target_patch, tracklets[sel])
             if len(cutouts) == 0:
                 continue
 
