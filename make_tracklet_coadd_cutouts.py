@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
                         plt.subplot(top_level_grid[1]) #Science
                         scaled_sci_cutout = ((sci_cutout - z1)/z2) #.clip(0,1)
-                        plt.imshow(scaled_sci_cutout, interpolation="none", cmap=cm.viridis)
+                        plt.imshow(sci_cutout, interpolation="none", cmap=cm.viridis)
                         plt.title("Science",color='white')
                         plt.axis("off")
 
