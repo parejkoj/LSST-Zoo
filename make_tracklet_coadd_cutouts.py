@@ -95,6 +95,7 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
 
     cutouts = []
     cutout_data = []
+    sci_cutouts = []
     for tracklet in tracklets:
 
         # Some tracklets are generated from a different (but slightly
@@ -115,13 +116,13 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
         shifted_xy = pixel_center - patch_info.getOuterBBox().getBegin()
         cutout = combined_img[(shifted_xy.getY() - cutout_size):(shifted_xy.getY() + cutout_size),
                               (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
-        sci_cutouts=[]
+        obj_sci_cutouts=[]
         for im in patch_images:
             im=np.dstack(im.getMaskedImage().getImage().getArray())
             sci_cutout=im[(shifted_xy.getY() - cutout_size):(shifted_xy.getY() + cutout_size),
                                   (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
-            sci_cutouts.append(sci_cutout)
-
+            obj_sci_cutouts.append(sci_cutout)
+        sci_cutouts.append(obj_sci_cutouts)
         cutouts.append(cutout)
         cutout_data.append({"tracklet_length": tracklet_length*3600.0})
     return cutouts, cutout_data, (z1, z2), sci_cutouts
