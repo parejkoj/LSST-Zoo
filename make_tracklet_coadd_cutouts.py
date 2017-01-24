@@ -117,6 +117,7 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
                               (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
         sci_cutouts=[]
         for im in patch_images:
+            im=np.dstack([im.getMaskedImage().getImage().getArray()])
             sci_cutout=im[(shifted_xy.getY() - cutout_size):(shifted_xy.getY() + cutout_size),
                                   (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
             sci_cutouts.append(sci_cutout)
