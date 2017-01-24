@@ -184,25 +184,25 @@ if __name__ == "__main__":
                     plt.subplot(top_level_grid[0]) #Template
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Template")
+                    plt.title("Template",color='white')
                     plt.axis("off")
 
                     plt.subplot(top_level_grid[1]) #Science
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Science")
+                    plt.title("Science",color='white')
                     plt.axis("off")
 
                     plt.subplot(top_level_grid[2]) #Difference
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Difference")
+                    plt.title("Difference",color='white')
                     plt.axis("off")
 
                     plt.subplot(top_level_grid[3]) #Coadd
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("Coadd")
+                    plt.title("Coadd", color='white')
                     plt.axis("off")
 
                 plt.subplots_adjust(hspace=0.02, wspace=0.02, left=0.05, right=0.95,
