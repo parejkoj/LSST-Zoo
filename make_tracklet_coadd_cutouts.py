@@ -179,24 +179,24 @@ if __name__ == "__main__":
                 #top_level_grid = gridspec.GridSpec(3, 2) #(4,4)
 
                 for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
-                    top_level_grid=gridspec.GridSpec(4,1)
+                    top_level_grid=gridspec.GridSpec(1,4)
 
                     plt.subplot(top_level_grid[0]) #Template
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(), target_patch.getIndex()[0], target_patch.getIndex()[1], group_n))
+                    #plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(), target_patch.getIndex()[0], target_patch.getIndex()[1], group_n))
                     plt.axis("off")
 
                     plt.subplot(top_level_grid[1]) #Science
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(), target_patch.getIndex()[0], target_patch.getIndex()[1], group_n))
+                    #plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(), target_patch.getIndex()[0], target_patch.getIndex()[1], group_n))
                     plt.axis("off")
 
                     plt.subplot(top_level_grid[2]) #Difference
                     scaled_cutout = ((cutout - z1)/z2).clip(0,1)
                     plt.imshow(scaled_cutout, interpolation="none", cmap=cm.viridis)
-                    plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(), target_patch.getIndex()[0], target_patch.getIndex()[1], group_n))
+                    #plt.title("cutouts_tract{:d}_p{:d}{:d}_{:0d}.png".format(tract_info.getId(), target_patch.getIndex()[0], target_patch.getIndex()[1], group_n))
                     plt.axis("off")
 
                     plt.subplot(top_level_grid[3]) #Coadd
