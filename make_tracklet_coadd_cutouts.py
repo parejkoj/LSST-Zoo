@@ -82,8 +82,6 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
     patch_images = [butler.get("deepCoadd_tempExp", visit=int(v), **dataref) #Temporary exposure
                     for v in available_visits]
 
-    for im in patch_images:
-
 
     if len(patch_images) == 0:
         return [], [], (0,0)
