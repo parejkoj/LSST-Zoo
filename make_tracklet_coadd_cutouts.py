@@ -186,7 +186,7 @@ if __name__ == "__main__":
                 plt.figure(1).clear()
                 #top_level_grid = gridspec.GridSpec(3, 2) #(4,4)
 
-                for cutout_n, (cutout, cutout_data) in enumerate(cutout_group):
+                for cutout_n, (cutout, cutout_data, sci_cutouts) in enumerate(cutout_group):
 
                     for sci_cutout in sci_cutouts:
 
