@@ -224,7 +224,7 @@ if __name__ == "__main__":
 
                         plt.subplots_adjust(hspace=0.02, wspace=0.02, left=0.05, right=0.95,
                                     top=0.95, bottom=0.05)
-                        plt.savefig("cutouts/cutouts_tract{:d}_p{:d}{:d}_{:0d}_{:d}.png".format(tract_info.getId(),
+                        plt.savefig("cutouts/cutouts_tract{:d}_p{:d}{:d}_{:0d}_{:s}.png".format(tract_info.getId(),
                                                                            target_patch.getIndex()[0],
                                                                            target_patch.getIndex()[1],
                                                                            group_n,str(count)),
