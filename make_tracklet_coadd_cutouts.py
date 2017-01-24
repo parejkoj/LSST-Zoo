@@ -118,7 +118,7 @@ def make_cutouts_for_patch(b, tract_info, patch_info, tracklets, cutout_size=30)
                               (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
         obj_sci_cutouts=[]
         for im in patch_images:
-            im=np.dstack(im.getMaskedImage().getImage().getArray())
+            im=im.getMaskedImage().getImage().getArray()
             sci_cutout=im[(shifted_xy.getY() - cutout_size):(shifted_xy.getY() + cutout_size),
                                   (shifted_xy.getX() - cutout_size):(shifted_xy.getX() + cutout_size)]
             obj_sci_cutouts.append(sci_cutout)
@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
                         plt.subplot(top_level_grid[1]) #Science
                         scaled_sci_cutout = ((sci_cutout - z1)/z2) #.clip(0,1)
-                        plt.imshow(sci_cutout, interpolation="none", cmap=cm.viridis)
+                        plt.imshow(scaled_sci_cutout, interpolation="none", cmap=cm.viridis)
                         plt.title("Science",color='white')
                         plt.axis("off")
 
