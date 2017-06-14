@@ -14,7 +14,7 @@ import pandas as pd
 import astropy
 import json
 
-def ZOMLR(stack_features,zoo_classifications):
+def ZooMeR(stack_features,zoo_classifications):
 
     #Retrieve Parameters
     params = pd.read_csv(stack_features)
