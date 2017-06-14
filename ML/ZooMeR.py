@@ -1,4 +1,4 @@
-# ZOMLR -- Zooniverse Output to Machine Learning Ready
+# ZooMeR -- Zooniverse to Machine LeaRning
 
 #Code Contained in this file takes the output of a zooniverse classification run and
 #changes it to a form usable by ML algorithms
