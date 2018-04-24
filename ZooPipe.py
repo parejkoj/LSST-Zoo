@@ -11,9 +11,8 @@ import csv
 #print glob.glob("c:\\Users\\Doug\\LSST\\sub_sets\\Asteroids\\*.jpg")[0][38:-4]
 
 #Connect to Zooniverse and Find Project
-Panoptes.connect(username='dougbrn', password='roscoe282306')
 project = Project.find(3356)
-
+"""
 #Create new subject set. Name must be unique.
 subject_set = SubjectSet()
 subject_set.links.project = project
@@ -34,7 +33,7 @@ for image in glob.glob("/home/doug/lsst-mount/Zooniverse/cutouts/*.png"):
 
 
 #SubjectSet.add() #can take a list of Subjects, or just one.
-"""
+
 #Ping Zooniverse to send data. Data sent in an email.
 export_file = project.get_export("classifications",generate=True, wait=True)
 r  = csv.reader(export_file)
